@@ -4,8 +4,10 @@ import (
 	"log"
 	"net/http"
 	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-programming-tour-book/blog-service/global"
+	"github.com/go-programming-tour-book/blog-service/internal/model"
 	"github.com/go-programming-tour-book/blog-service/internal/routers"
 	"github.com/go-programming-tour-book/blog-service/pkg/setting"
 )
@@ -14,6 +16,10 @@ func init() {
 	err := setupSetting()
 	if err != nil {
 		log.Fatalf("init.setupSetting err: %v", err)
+	}
+	err = setupDBEngine()
+	if err != nil {
+		log.Fatalf("init.setupDBEngine err: %v", err)
 	}
 }
 
@@ -39,16 +45,27 @@ func setupSetting() error {
 	return nil
 }
 
+func setupDBEngine() error {
+	var err error
+	
+	global.DBEngine, err =  model.NewDBEngine(global.DatabaseSetting)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func main() {
 	gin.SetMode(global.ServerSetting.RunMode)
 	//创建默认engine实例
 	r := routers.NewRouter()
 	s := &http.Server{
-		Addr: ":"+global.ServerSetting.HttpPort,
-		Handler: r,
-		ReadTimeout: global.ServerSetting.ReadTimeout,
-		WriteTimeout: global.ServerSetting.WriteTimeout,
-		MaxHeaderBytes: 1<<20,
+		Addr:           ":" + global.ServerSetting.HttpPort,
+		Handler:        r,
+		ReadTimeout:    global.ServerSetting.ReadTimeout,
+		WriteTimeout:   global.ServerSetting.WriteTimeout,
+		MaxHeaderBytes: 1 << 20,
 	}
 	// 监听端口，启动服务
 	// r.Run()
