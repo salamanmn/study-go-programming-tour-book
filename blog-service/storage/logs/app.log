@@ -1,0 +1,4 @@
+2024/04/27 17:29:21 {"callers":["C:/Users/王浩/Desktop/WPS同步文档/go-programming-tour-book/blog-service/main.go: 24 main.init.0"],"level":"error","message":"app.BindAndValid errs: [Name必须是[0 1]中的一个 State必须是[ 0 1]中的一个]","time":1714210161598997700}
+2024/04/27 17:29:52 {"callers":["C:/Users/王浩/Desktop/WPS同步文档/go-programming-tour-book/blog-service/main.go: 24 main.init.0"],"level":"error","message":"app.BindAndValid errs: [Name必须是[0 1]中的一个]","time":1714210192726909100}
+2024/04/27 17:30:43 {"callers":["C:/Users/王浩/Desktop/WPS同步文档/go-programming-tour-book/blog-service/main.go: 24 main.init.0"],"level":"error","message":"app.BindAndValid errs: [Name必须是[0 1]中的一个 State必须是[ 0 1]中的一个]","time":1714210243843497300}
+2024/04/27 17:33:14 {"callers":["C:/Users/王浩/Desktop/WPS同步文档/go-programming-tour-book/blog-service/main.go: 24 main.init.0"],"level":"error","message":"app.BindAndValid errs: [State必须是[ 0 1]中的一个]","time":1714210394298584100}
