@@ -77,6 +77,9 @@ func setupLogger() error {
 	return nil
 }
 
+// @title 博客系统
+// @version 1.0
+// @description 学习Go 语言编程之旅书籍
 func main() {
 	gin.SetMode(global.ServerSetting.RunMode)
 	//创建默认engine实例

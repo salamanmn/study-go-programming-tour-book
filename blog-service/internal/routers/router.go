@@ -2,13 +2,17 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	_ "github.com/go-programming-tour-book/blog-service/docs"
 	"github.com/go-programming-tour-book/blog-service/internal/routers/api/v1"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func NewRouter() *gin.Engine {
 	router := gin.Default()
 	article := v1.NewArticle()
 	tag := v1.NewTag()
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	// 简单的路由组: v1
 	apiv1 := router.Group("/api/v1")
 	{
