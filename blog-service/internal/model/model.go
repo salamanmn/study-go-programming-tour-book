@@ -34,7 +34,7 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettingS) (*gorm.DB, error) {
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
 		},
-		Logger: logger.Default.LogMode(logger.Silent),
+		Logger:                 logger.Default.LogMode(logger.Silent),
 	})
 	if err != nil {
 		return nil, err
@@ -46,3 +46,13 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettingS) (*gorm.DB, error) {
 
 	return db, nil
 }
+
+/*GORM v2版本剔除了gorm.Scope类型，
+为了对公共字段created_on、modified_on、deleted_on、is_del不进行重复操作，
+采用v2版本中的hook狗子函数。
+*/
+//新增行为的hook函数
+
+//更新行为的hook函数
+
+//删除行为的hook函数

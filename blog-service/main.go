@@ -26,10 +26,10 @@ func init() {
 		log.Fatalf("init.setupLogger err: %v", err)
 	}
 
-	// err = setupDBEngine()
-	// if err != nil {
-	// 	log.Fatalf("init.setupDBEngine err: %v", err)
-	// }
+	err = setupDBEngine()
+	if err != nil {
+		log.Fatalf("init.setupDBEngine err: %v", err)
+	}
 }
 
 func setupSetting() error {

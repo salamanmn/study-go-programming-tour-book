@@ -11,7 +11,8 @@ import (
 )
 
 type Level int8
-//日志公共字段
+
+// 日志公共字段
 type Fields map[string]interface{}
 
 const (
@@ -41,7 +42,7 @@ func (l Level) String() string {
 	return ""
 }
 
-//日志记录对象
+// 日志记录对象
 type Logger struct {
 	newLogger *log.Logger
 	ctx       context.Context
@@ -108,8 +109,8 @@ func (l *Logger) WithCallersFrames() *Logger {
 	return ll
 }
 
-func (l *Logger) JSONFormat(level Level, message string) map[string]interface{}{
-	data := make(Fields, len(l.fields) + 4)
+func (l *Logger) JSONFormat(level Level, message string) map[string]interface{} {
+	data := make(Fields, len(l.fields)+4)
 	data["level"] = level.String()
 	data["time"] = time.Now().Local().UnixNano()
 	data["message"] = message
@@ -143,11 +144,6 @@ func (l *Logger) Output(level Level, message string) {
 	}
 }
 
-
-
-// case LevelPanic:
-// 	return "panic"
-// }
 func (l *Logger) Info(v ...interface{}) {
 	l.Output(LevelInfo, fmt.Sprint(v...))
 }
@@ -195,6 +191,3 @@ func (l *Logger) Panic(v ...interface{}) {
 func (l *Logger) Panicf(format string, v ...interface{}) {
 	l.Output(LevelPanic, fmt.Sprintf(format, v...))
 }
-
-
-
