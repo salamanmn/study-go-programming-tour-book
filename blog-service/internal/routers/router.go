@@ -18,11 +18,14 @@ func NewRouter() *gin.Engine {
 	article := v1.NewArticle()
 	tag := v1.NewTag()
 	upload := api.NewUpload()
+	auth := api.NewAuthority()
+	router.POST("/auth", auth.GetAuth)
 	router.POST("/upload/file", upload.UploadFile)
 	router.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	// 简单的路由组: v1
 	apiv1 := router.Group("/api/v1")
+	apiv1.Use(middleware.JWT())
 	{
 		apiv1.POST("/tags", tag.Create)
 		apiv1.DELETE("/tags/:id", tag.Delete)
