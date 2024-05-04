@@ -10,15 +10,16 @@ type ServerSettingS struct {
 }
 
 type AppSettings struct {
-	DefaultPageSize      int
-	MaxPageSize          int
-	LogSavePath          string
-	LogFileName          string
-	LogFileExt           string
-	UploadSavePath       string
-	UploadServerUrl      string
-	UploadImageMaxSize   int
-	UploadImageAllowExts []string
+	DefaultPageSize       int
+	DefaultContextTimeout time.Duration
+	MaxPageSize           int
+	LogSavePath           string
+	LogFileName           string
+	LogFileExt            string
+	UploadSavePath        string
+	UploadServerUrl       string
+	UploadImageMaxSize    int
+	UploadImageAllowExts  []string
 }
 
 type DatabaseSettingS struct {
@@ -38,4 +39,14 @@ type JWTSettings struct {
 	Secret string
 	Issuer string
 	Expire time.Duration
+}
+
+type EmailSettingS struct {
+	Host     string
+	Port     int
+	UserName string
+	Password string
+	IsSSL    bool
+	From     string
+	To       []string
 }

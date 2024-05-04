@@ -7,14 +7,37 @@ import (
 	"github.com/go-programming-tour-book/blog-service/internal/middleware"
 	"github.com/go-programming-tour-book/blog-service/internal/routers/api"
 	"github.com/go-programming-tour-book/blog-service/internal/routers/api/v1"
+	"github.com/go-programming-tour-book/blog-service/pkg/limiter"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"net/http"
+	"time"
+)
+
+var methodLimiters = limiter.NewMethodLimiter().AddBuckets(
+	limiter.LimiterBucketRule{
+		Key:          "/auth",
+		FillInterval: time.Second,
+		Capacity:     10,
+		Quantum:      10,
+	},
 )
 
 func NewRouter() *gin.Engine {
-	router := gin.Default()
+	router := gin.New()
+
+	if global.ServerSetting.RunMode == "debug" {
+		router.Use(gin.Logger())
+		router.Use(gin.Recovery())
+	} else {
+		router.Use(middleware.AccessLog())
+		router.Use(middleware.Recovery())
+	}
+
+	router.Use(middleware.RateLimiter(methodLimiters))
+	router.Use(middleware.ContextTimeout(global.AppSetting.DefaultContextTimeout))
 	router.Use(middleware.Translations())
+
 	article := v1.NewArticle()
 	tag := v1.NewTag()
 	upload := api.NewUpload()

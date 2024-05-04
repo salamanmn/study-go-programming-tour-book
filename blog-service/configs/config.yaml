@@ -1,10 +1,11 @@
 Server:
-  RunMode: debug
+  RunMode: release
   HttpPort: 8080
   ReadTimeout: 60
   WriteTimeout: 60
 App:
   DefaultPageSize: 10
+  DefaultContextTimeout: 60
   MaxPageSize: 100
   LogSavePath: storage/logs
   LogFileName: app
@@ -31,3 +32,12 @@ JWT:
   Secret: eddycjy
   Issuer: blog-service
   Expire: 7200
+Email:
+  Host: smtp.qq.com
+  Port: 465
+  UserName: ×××@qq.com #发送信息的qq邮箱
+  Password: 123456     #授权码
+  IsSSL: true
+  From: ×××@qq.com #发送信息的qq邮箱
+  To:
+    - ×××@gmail.com #接受信息的邮箱
