@@ -10,6 +10,7 @@ import (
 	"github.com/go-programming-tour-book/blog-service/pkg/limiter"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	gormopentracing "gorm.io/plugin/opentracing"
 	"net/http"
 	"time"
 )
@@ -34,6 +35,8 @@ func NewRouter() *gin.Engine {
 		router.Use(middleware.Recovery())
 	}
 
+	router.Use(middleware.Tracing())
+	_ = global.DBEngine.Use(gormopentracing.New()) //新增实现SQL追踪
 	router.Use(middleware.RateLimiter(methodLimiters))
 	router.Use(middleware.ContextTimeout(global.AppSetting.DefaultContextTimeout))
 	router.Use(middleware.Translations())

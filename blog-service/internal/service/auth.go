@@ -12,11 +12,12 @@ func (svc *Service) CheckAuth(param *AuthRequest) error {
 	if err != nil {
 		return err
 	}
-	//if auth.Model != nil && auth.ID > 0 {
-	//	return nil
-	//}
-	if auth.ID > 0 {
+	if auth.Model != nil && auth.ID > 0 {
 		return nil
 	}
+	//错误情况：返回auth中的model为空时出错
+	//if auth.ID > 0 {
+	//	return nil
+	//}
 	return errors.New("auth info does not exist.")
 }
